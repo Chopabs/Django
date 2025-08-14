@@ -1,5 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect 
+from django.contrib import messages
 from django.db.models import Q
+from django.contrib.auth.models import User
+
 from .models import Room, Topic
 from .forms import RoomForm
 # rooms = [
@@ -7,7 +10,18 @@ from .forms import RoomForm
 #     {'id': 2, 'name': 'CSS Fundamentals'},
 #     {'id': 3, 'name': 'JavaScript Essentials'},
 # ]
- 
+
+def loginpage(request):
+    if (request.method == 'POST'):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        try:
+            user = User.objects.get(username=username, password=password)
+        except:
+            messages.error(request, "Invalid username or password")
+    context = {}
+    return render(request, 'base/login_register.html', context)
+
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
