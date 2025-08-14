@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Room, topic, message
+from .models import Room, Topic, message
 
 #Set List
 class RoomAdmin(admin.ModelAdmin):
@@ -9,5 +9,5 @@ class RoomAdmin(admin.ModelAdmin):
     list_filter = ('topic', 'host')
 
 admin.site.register(Room, RoomAdmin)
-admin.site.register(topic)
+admin.site.register(Topic)
 admin.site.register(message) 
